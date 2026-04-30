@@ -1,13 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import heroImage from "@assets/FB_IMG_1777583498554_1777583587493.jpg";
-
-declare global {
-  interface Window {
-    onYouTubeIframeAPIReady: () => void;
-    YT: any;
-  }
-}
+const songUrl = `${import.meta.env.BASE_URL}tribute-song.mp3`;
 
 // Icons / SVGs
 const PlayIcon = () => (
@@ -64,9 +58,7 @@ const Subtitle = ({ text, delay = 0, className = "" }: { text: string, delay?: n
 export default function App() {
   const [entered, setEntered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const playerRef = useRef<any>(null);
-  const playerReadyRef = useRef(false);
-  const wantsPlayRef = useRef(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Custom Cursor
@@ -78,98 +70,37 @@ export default function App() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // YouTube Setup
-  useEffect(() => {
-    const initPlayer = () => {
-      if (playerRef.current) return;
-      const target = document.getElementById("youtube-player");
-      if (!target) return;
-      playerRef.current = new window.YT.Player("youtube-player", {
-        videoId: "B6o7FtVXpcA",
-        width: "320",
-        height: "180",
-        playerVars: {
-          autoplay: 1,
-          loop: 1,
-          playlist: "B6o7FtVXpcA",
-          controls: 0,
-          showinfo: 0,
-          modestbranding: 1,
-          mute: 1,
-          playsinline: 1,
-          disablekb: 1,
-          fs: 0,
-          rel: 0,
-        },
-        events: {
-          onReady: (e: any) => {
-            playerReadyRef.current = true;
-            try {
-              e.target.playVideo();
-            } catch {}
-            if (wantsPlayRef.current) {
-              try {
-                e.target.unMute();
-                e.target.setVolume(100);
-                e.target.playVideo();
-                setIsPlaying(true);
-              } catch {}
-            }
-          },
-          onStateChange: (event: any) => {
-            const YT = window.YT;
-            if (event.data === YT.PlayerState.PLAYING) {
-              if (!event.target.isMuted()) setIsPlaying(true);
-            } else if (
-              event.data === YT.PlayerState.PAUSED ||
-              event.data === YT.PlayerState.ENDED
-            ) {
-              setIsPlaying(false);
-            }
-          },
-        },
-      });
-    };
-
-    if (window.YT && window.YT.Player) {
-      initPlayer();
-    } else {
-      const prev = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        if (typeof prev === "function") prev();
-        initPlayer();
-      };
-    }
-  }, []);
-
   const handleEnter = () => {
     setEntered(true);
-    wantsPlayRef.current = true;
-    const p = playerRef.current;
-    if (p && playerReadyRef.current) {
-      try {
-        p.unMute();
-        p.setVolume(100);
-        p.playVideo();
+    const a = audioRef.current;
+    if (a) {
+      a.volume = 0.85;
+      a.muted = false;
+      const p = a.play();
+      if (p && typeof p.then === "function") {
+        p.then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+      } else {
         setIsPlaying(true);
-      } catch {}
+      }
     }
   };
 
   const toggleMute = () => {
-    const p = playerRef.current;
-    if (!p) return;
-    try {
-      if (isPlaying) {
-        p.pauseVideo();
-        setIsPlaying(false);
+    const a = audioRef.current;
+    if (!a) return;
+    if (isPlaying) {
+      a.pause();
+      setIsPlaying(false);
+    } else {
+      a.muted = false;
+      a.volume = 0.85;
+      const p = a.play();
+      if (p && typeof p.then === "function") {
+        p.then(() => setIsPlaying(true)).catch(() => {});
       } else {
-        p.unMute();
-        p.setVolume(100);
-        p.playVideo();
         setIsPlaying(true);
       }
-    } catch {}
+    }
   };
 
   return (
@@ -182,22 +113,14 @@ export default function App() {
       <div className="film-grain" />
       <div className="vignette" />
       
-      {/* Hidden YouTube Player (wrapper stays in DOM; YT replaces the inner div with an iframe) */}
-      <div
-        aria-hidden
-        style={{
-          position: "fixed",
-          left: "-9999px",
-          top: "-9999px",
-          width: "320px",
-          height: "180px",
-          opacity: 0,
-          pointerEvents: "none",
-          overflow: "hidden",
-        }}
-      >
-        <div id="youtube-player" />
-      </div>
+      {/* Background music — local file, persists across the whole film */}
+      <audio
+        ref={audioRef}
+        src={songUrl}
+        loop
+        preload="auto"
+        playsInline
+      />
 
       <AnimatePresence>
         {!entered ? (
@@ -387,20 +310,22 @@ export default function App() {
                   viewport={{ once: false, amount: 0.8 }}
                   transition={{ duration: 2 }}
                   onViewportEnter={() => {
-                    // Fade out music slightly
-                    if (playerRef.current && isPlaying) {
-                      let vol = 100;
+                    const a = audioRef.current;
+                    if (a && !a.paused) {
+                      let vol = a.volume;
                       const fade = setInterval(() => {
-                        vol -= 5;
-                        if (vol <= 20) clearInterval(fade);
-                        playerRef.current.setVolume(vol);
+                        vol -= 0.05;
+                        if (vol <= 0.2) {
+                          vol = 0.2;
+                          clearInterval(fade);
+                        }
+                        a.volume = Math.max(0.2, vol);
                       }, 200);
                     }
                   }}
                   onViewportLeave={() => {
-                    if (playerRef.current && isPlaying) {
-                      playerRef.current.setVolume(100);
-                    }
+                    const a = audioRef.current;
+                    if (a) a.volume = 0.85;
                   }}
                 >
                   <h2 className="font-['Marhey'] text-2xl text-primary/40 tracking-[1em] mr-[-1em]">نهاية</h2>
