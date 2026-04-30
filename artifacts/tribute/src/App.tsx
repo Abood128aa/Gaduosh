@@ -451,11 +451,7 @@ export default function App() {
                   onClick={handleHeartClick}
                 >
                   {bursts.map((b) => (
-                    <span
-                      key={b.id}
-                      className="absolute pointer-events-none"
-                      style={{ left: b.x, top: b.y }}
-                    >
+                    <span key={b.id} className="absolute pointer-events-none" style={{ left: b.x, top: b.y }}>
                       {Array.from({ length: 8 }).map((_, i) => (
                         <motion.span
                           key={i}
@@ -477,13 +473,10 @@ export default function App() {
                   ))}
 
                   <p className="text-[hsl(var(--primary))]/70 font-sans tracking-[0.4em] text-xs uppercase">إهداء</p>
-
                   <BeatingHeart size={170} />
-
                   <h1 className="font-[Marhey] text-6xl md:text-8xl lg:text-[10rem] font-light tracking-wide glow-text">
                     <NameReveal name="غدّوش" className="shimmer-text" />
                   </h1>
-
                   <Divider />
                   <p className="text-[hsl(var(--primary))]/55 font-sans text-xs tracking-[0.4em]">٣٠ نيسان ٢٠٢٦</p>
                 </motion.div>
@@ -497,24 +490,27 @@ export default function App() {
                   initial={{ scale: 1 }}
                   whileInView={{ scale: 1.18 }}
                   viewport={{ once: false }}
-                  transition={{ duration: 18, ease: "linear" }}
+                  transition={{ duration: 22, ease: "linear" }}
                   className="absolute inset-0"
                 >
                   <div className="absolute inset-0 bg-black/45 z-10" />
                   <img src={heroImage} alt="غدّوش" className="w-full h-full object-cover object-center opacity-85" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-20 opacity-90" />
-                  <div className="absolute inset-0 z-20" style={{
-                    background: "radial-gradient(circle at center, transparent 30%, hsl(345 50% 5% / 0.7) 90%)",
-                  }} />
+                  <div
+                    className="absolute inset-0 z-20"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, transparent 30%, hsl(345 50% 5% / 0.7) 90%)",
+                    }}
+                  />
                 </motion.div>
 
                 <Sparkles count={18} />
 
-                {/* Roses around the photo */}
                 {[
                   { top: "14%", left: "10%", size: 36, delay: 0 },
                   { top: "24%", left: "84%", size: 28, delay: 0.4 },
-                  { top: "60%", left: "6%",  size: 32, delay: 0.8 },
+                  { top: "60%", left: "6%", size: 32, delay: 0.8 },
                   { top: "70%", left: "86%", size: 40, delay: 1.2 },
                   { top: "40%", left: "92%", size: 22, delay: 1.6 },
                 ].map((r, i) => (
@@ -530,22 +526,101 @@ export default function App() {
                   </motion.div>
                 ))}
 
-                <div className="absolute bottom-[16vh] left-0 w-full text-center z-30 px-6 space-y-4">
+                <div className="absolute bottom-[14vh] left-0 w-full text-center z-30 px-6 space-y-5">
                   <Subtitle
                     text="في حوران تولد البنات تيجاناً"
-                    delay={0.2}
+                    delay={0.3}
                     className="font-sans text-xl md:text-3xl text-foreground drop-shadow-md font-light glow-text"
                   />
                   <Subtitle
-                    text="ومن تراب الجيزة، نبتت زهرةٌ اسمها غدّوش"
-                    delay={1.2}
-                    className="font-sans text-base md:text-xl text-[hsl(var(--rose))]/90 font-light"
+                    text="وفي القلوب تولد الحكاياتُ الجميلة"
+                    delay={1.6}
+                    className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                  />
+                  <Subtitle
+                    text="وهذه حكاية... غدّوش"
+                    delay={3.0}
+                    className="font-sans text-base md:text-xl text-[hsl(var(--rose))]/95 font-light tracking-wider"
                   />
                 </div>
-                <ScrollHint label="تابعي الحكاية" />
+                <ScrollHint label="تابعي" />
               </section>
 
-              {/* ===== Scene 3: Quote ===== */}
+              {/* ===== Scene 3: Beauty — eyes / smile / voice ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 text-center relative">
+                <FloatingPetals count={10} />
+                <Sparkles count={16} />
+
+                <div className="relative z-10 max-w-2xl space-y-8">
+                  <Subtitle
+                    text="عن جمالكِ ..."
+                    delay={0}
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-6 tracking-wider glow-text"
+                  />
+                  <Subtitle
+                    text="في عينيكِ بحرٌ من حكايات لم تُروَ بعد"
+                    delay={0.8}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وفي ابتسامتكِ ربيعٌ لا يعرف الذبول"
+                    delay={2.0}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وفي صوتكِ موسيقى لا تشبه إلا قلبكِ"
+                    delay={3.2}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="أنتِ كما الورد ، نادرةٌ وكاملة"
+                    delay={4.4}
+                    className="font-sans text-2xl md:text-3xl shimmer-text font-light leading-relaxed pt-2"
+                  />
+                </div>
+                <ScrollHint label="المزيد عنكِ" />
+              </section>
+
+              {/* ===== Scene 4: Beauty Pt 2 — soul ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 text-center relative">
+                <FloatingPetals count={12} />
+                <Sparkles count={18} />
+
+                <div className="relative z-10 max-w-2xl space-y-8">
+                  <Subtitle
+                    text="جمالكِ ليس صورةً تُرى ..."
+                    delay={0.2}
+                    className="font-sans text-xl md:text-2xl text-foreground/90 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="جمالكِ روحٌ تختار طريقها بكلّ ثقة"
+                    delay={1.5}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="جمالكِ هدوءٌ يحملُ كبرياء ابنةِ حوران"
+                    delay={2.8}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="جمالكِ أنّكِ ... أنتِ"
+                    delay={4.1}
+                    className="font-['Marhey'] text-3xl md:text-5xl shimmer-text glow-text pt-4"
+                  />
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 5, duration: 1.4 }}
+                    className="flex justify-center"
+                  >
+                    <RoseSVG className="w-12 h-12 drift" />
+                  </motion.div>
+                </div>
+                <ScrollHint label="كلامها" />
+              </section>
+
+              {/* ===== Scene 5: Quote ===== */}
               <section className="film-scene flex flex-col items-center justify-center bg-transparent px-6 text-center relative">
                 <FloatingPetals count={8} />
                 <Sparkles count={14} />
@@ -554,15 +629,15 @@ export default function App() {
                   <Subtitle
                     text="قالت يومًا، بصوتٍ أعرفه"
                     delay={0}
-                    className="font-sans text-base md:text-lg text-[hsl(var(--primary))]/70 tracking-wider"
+                    className="font-sans text-base md:text-lg text-[hsl(var(--primary))]/75 tracking-wider"
                   />
-                  <Subtitle text="وفي النهاية ..." delay={0.8} className="font-serif text-3xl md:text-5xl text-foreground" />
-                  <Subtitle text="اخترتُ نفسي ..." delay={1.6} className="font-serif text-3xl md:text-5xl text-foreground" />
+                  <Subtitle text="وفي النهاية ..." delay={1.2} className="font-serif text-3xl md:text-5xl text-foreground" />
+                  <Subtitle text="اخترتُ نفسي ..." delay={2.6} className="font-serif text-3xl md:text-5xl text-foreground" />
                   <motion.div
                     initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
                     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: false, amount: 0.5 }}
-                    transition={{ duration: 1.4, delay: 2.6, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1.4, delay: 4.0, ease: [0.16, 1, 0.3, 1] }}
                     className="font-serif text-3xl md:text-5xl shimmer-text flex items-center justify-center gap-4"
                   >
                     <span>والنفوس عزيزة</span>
@@ -572,8 +647,8 @@ export default function App() {
                   <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    transition={{ delay: 4, duration: 2 }}
-                    className="font-sans text-xs tracking-[0.4em] text-[hsl(var(--primary))]/60"
+                    transition={{ delay: 5.5, duration: 2 }}
+                    className="font-sans text-xs tracking-[0.4em] text-[hsl(var(--primary))]/65"
                   >
                     — غدّوش
                   </motion.p>
@@ -581,7 +656,7 @@ export default function App() {
                 <ScrollHint label="هناك المزيد" />
               </section>
 
-              {/* ===== Scene 4: Identity ===== */}
+              {/* ===== Scene 6: Identity ===== */}
               <section className="film-scene bg-transparent relative flex items-center justify-center">
                 <div className="absolute inset-0">
                   <img src={heroImage} className="w-full h-full object-cover opacity-15 blur-md grayscale" alt="" />
@@ -590,24 +665,24 @@ export default function App() {
                 <Sparkles count={14} />
                 <FloatingPetals count={6} />
 
-                <div className="relative z-10 flex flex-col space-y-10 items-center text-center">
+                <div className="relative z-10 flex flex-col space-y-9 items-center text-center">
                   <Subtitle
                     text="من هي غدّوش ؟"
                     delay={0}
-                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-4 tracking-wider glow-text"
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-2 tracking-wider glow-text"
                   />
                   {[
                     { ar: "ابنةُ حوران الأبيّة", en: "Daughter of Hauran" },
-                    { ar: "من الجيزة، درعا", en: "From Al-Jizah · Dar'A" },
-                    { ar: "وُلدت في ربيع أيار", en: "Born in May's Spring" },
+                    { ar: "وُلدت في ربيعِ أيّار", en: "Born in May's Spring" },
                     { ar: "صانعةُ الحكاية والكلمة", en: "Storyteller of Words" },
+                    { ar: "ملكةٌ بلا تاج ، وقلبٌ بلا أقفال", en: "A Queen Without a Crown" },
                   ].map((line, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, y: 14, x: i % 2 === 0 ? -20 : 20 }}
                       whileInView={{ opacity: 1, y: 0, x: 0 }}
                       viewport={{ once: false, amount: 0.6 }}
-                      transition={{ duration: 1.2, delay: i * 0.4 }}
+                      transition={{ duration: 1.2, delay: i * 0.6 }}
                       className="flex items-center gap-4"
                     >
                       <RoseSVG className="w-5 h-5" />
@@ -622,7 +697,7 @@ export default function App() {
                 <ScrollHint label="القصيدة" />
               </section>
 
-              {/* ===== Scene 5: Poem with central heart ===== */}
+              {/* ===== Scene 7: Poem with central heart ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 relative">
                 <FloatingPetals count={14} />
                 <Sparkles count={20} />
@@ -639,37 +714,38 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: false, amount: 0.5 }}
                   transition={{ duration: 1.6 }}
-                  className="relative z-10 mb-8"
+                  className="relative z-10 mb-6"
                 >
-                  <BeatingHeart size={200} />
+                  <BeatingHeart size={180} />
                 </motion.div>
 
-                <div className="max-w-2xl mx-auto space-y-5 text-center relative z-10">
-                  <Subtitle text="يا قمرَ الجيزة الذي ما غاب" delay={0.1} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={0.5} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={0.9} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={1.3} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="ومن وردِ نيسان غزلتِ ابتسامتكِ" delay={1.7} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="في صمتكِ حكاية ، وفي اختياركِ لنفسكِ ألف انتصار" delay={2.1} className="font-sans text-xl md:text-2xl shimmer-text font-light leading-relaxed" />
+                <div className="max-w-2xl mx-auto space-y-4 text-center relative z-10">
+                  <Subtitle text="يا قمراً ما غاب عن سمائي" delay={0.2} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={1.0} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={1.8} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={2.6} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="ومن وردِ نيسان غزلتِ ابتسامتكِ" delay={3.4} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="في صمتكِ حكاية ، وفي اختياركِ لنفسكِ ألف انتصار" delay={4.2} className="font-sans text-lg md:text-2xl shimmer-text font-light leading-relaxed" />
                 </div>
                 <ScrollHint label="أمنياتي لكِ" />
               </section>
 
-              {/* ===== Scene 6: Wishes ===== */}
+              {/* ===== Scene 8: Wishes ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 relative">
                 <FloatingPetals count={16} />
                 <Sparkles count={16} />
 
-                <div className="space-y-12 text-center relative z-10">
-                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/90 glow-text" />
-                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={0.8} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/90 glow-text" />
-                  <Subtitle text="ودامَ الوردُ في طريقكِ" delay={1.4} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--rose))]/90 glow-text" />
-                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={2.0} className="font-['Marhey'] text-4xl md:text-6xl shimmer-text" />
+                <div className="space-y-9 text-center relative z-10">
+                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={1.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامَ الوردُ في طريقكِ" delay={2.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامَ صوتُكِ ، يا صوتَ الفرح" delay={3.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={4.2} className="font-['Marhey'] text-3xl md:text-5xl shimmer-text" />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.4 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: false, amount: 0.5 }}
-                    transition={{ delay: 2.6, duration: 1.2 }}
+                    transition={{ delay: 5.0, duration: 1.2 }}
                     className="flex justify-center gap-6 items-center"
                   >
                     <RoseSVG className="w-10 h-10 drift" />
@@ -680,12 +756,12 @@ export default function App() {
                 <ScrollHint label="باقة وردٍ لكِ" />
               </section>
 
-              {/* ===== Scene 7: Roses bouquet ===== */}
+              {/* ===== Scene 9: Roses bouquet ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative px-6">
                 <FloatingPetals count={20} />
                 <Sparkles count={12} />
 
-                <div className="relative z-10 max-w-2xl space-y-10">
+                <div className="relative z-10 max-w-2xl space-y-9">
                   <Subtitle
                     text="باقةُ وردٍ من قلبٍ يحبّكِ"
                     delay={0}
@@ -696,7 +772,7 @@ export default function App() {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.4 }}
-                    transition={{ duration: 1.4, delay: 0.6 }}
+                    transition={{ duration: 1.4, delay: 0.8 }}
                     className="flex justify-center items-end gap-3 md:gap-5"
                   >
                     {[44, 56, 72, 56, 44].map((s, i) => (
@@ -711,28 +787,63 @@ export default function App() {
                     ))}
                   </motion.div>
 
-                  <div className="space-y-5 mt-6">
+                  <div className="space-y-5 mt-4">
                     <Subtitle
                       text="لكلِّ يومٍ من أيامكِ ، وردة"
-                      delay={1.2}
+                      delay={1.6}
                       className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
                     />
                     <Subtitle
                       text="ولكلِّ ابتسامةٍ من ضحكاتكِ ، نجمة"
-                      delay={1.8}
+                      delay={2.4}
                       className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
                     />
                     <Subtitle
                       text="ولكلِّ خطوةٍ تختارينها ، طريقٌ من نور"
-                      delay={2.4}
+                      delay={3.2}
                       className="font-sans text-lg md:text-2xl text-[hsl(var(--rose))]/95 font-light"
                     />
                   </div>
                 </div>
+                <ScrollHint label="من القلب" />
+              </section>
+
+              {/* ===== Scene 10: From the heart — direct words ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 text-center relative">
+                <FloatingPetals count={10} />
+                <Sparkles count={14} />
+
+                <div className="relative z-10 max-w-2xl space-y-7">
+                  <Subtitle
+                    text="من القلب ..."
+                    delay={0}
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-4 tracking-wider glow-text"
+                  />
+                  <Subtitle
+                    text="غدّوش ، يا قلبًا لا يُشبه قلباً"
+                    delay={0.8}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="يا روحًا اختارت الجمال طريقاً"
+                    delay={2.0}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="يا حُلمًا يمشي على الأرض"
+                    delay={3.2}
+                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="ابقي كما أنتِ ... فأنتِ كما الحُلمُ تماماً"
+                    delay={4.4}
+                    className="font-['Marhey'] text-2xl md:text-4xl shimmer-text font-light leading-relaxed pt-3"
+                  />
+                </div>
                 <ScrollHint label="التوقيع" />
               </section>
 
-              {/* ===== Scene 8: Signature ===== */}
+              {/* ===== Scene 11: Signature ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative">
                 <Sparkles count={20} />
                 <FloatingPetals count={10} />
@@ -741,10 +852,10 @@ export default function App() {
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 2 }}
-                  className="flex flex-col items-center space-y-6 relative z-10"
+                  className="flex flex-col items-center space-y-5 relative z-10"
                 >
                   <BeatingHeart size={130} />
-                  <p className="font-sans text-base text-[hsl(var(--primary))]/75 tracking-[0.4em] mt-6">بكلّ الحُب</p>
+                  <p className="font-sans text-base text-[hsl(var(--primary))]/75 tracking-[0.4em] mt-4">بكلّ الحُب</p>
                   <p
                     className="font-['Aref_Ruqaa'] text-6xl md:text-8xl shimmer-text mt-1"
                     style={{ transform: "rotate(-4deg)" }}
@@ -758,50 +869,80 @@ export default function App() {
                     <RoseSVG className="w-5 h-5" />
                   </div>
 
-                  <div className="mt-16">
+                  <div className="mt-12">
                     <p className="font-sans text-[10px] text-[hsl(var(--primary))]/35 tracking-[0.4em]">
                       هدية رقمية · ٢٠٢٦
                     </p>
                   </div>
                 </motion.div>
-                <ScrollHint label="النهاية" />
+                <ScrollHint label="إلى اللقاء" />
               </section>
 
-              {/* ===== Scene 9: End ===== */}
+              {/* ===== Scene 12: Farewell ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative">
-                <FloatingPetals count={6} />
+                <FloatingPetals count={14} />
+                <Sparkles count={20} />
+
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  viewport={{ once: false, amount: 0.8 }}
+                  viewport={{ once: false, amount: 0.6 }}
                   transition={{ duration: 2 }}
                   onViewportEnter={() => {
                     const a = audioRef.current;
                     if (a && !a.paused) {
                       let vol = a.volume;
                       const fade = setInterval(() => {
-                        vol -= 0.05;
-                        if (vol <= 0.2) {
-                          vol = 0.2;
+                        vol -= 0.04;
+                        if (vol <= 0.15) {
+                          vol = 0.15;
                           clearInterval(fade);
                         }
-                        a.volume = Math.max(0.2, vol);
-                      }, 200);
+                        a.volume = Math.max(0.15, vol);
+                      }, 220);
                     }
                   }}
                   onViewportLeave={() => {
                     const a = audioRef.current;
                     if (a) a.volume = 0.85;
                   }}
-                  className="relative z-10"
+                  className="relative z-10 flex flex-col items-center space-y-8"
                 >
-                  <h2 className="font-['Marhey'] text-2xl text-[hsl(var(--primary))]/45 tracking-[1em] mr-[-1em]">نهاية</h2>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.8 }}
+                  >
+                    <RoseSVG className="w-16 h-16 drift" />
+                  </motion.div>
+
+                  <Subtitle
+                    text="إلى اللقاء ..."
+                    delay={0.6}
+                    className="font-['Marhey'] text-4xl md:text-6xl shimmer-text glow-text"
+                  />
+                  <Subtitle
+                    text="طابَ يومُكِ"
+                    delay={2.0}
+                    className="font-['Marhey'] text-5xl md:text-7xl text-[hsl(var(--rose))] glow-text"
+                  />
+
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: 3.6, duration: 1.6 }}
+                    className="flex items-center gap-3 text-[hsl(var(--rose))]/80 pt-2"
+                  >
+                    <RoseSVG className="w-5 h-5" />
+                    <HeartSVG className="w-6 h-6 heart-beat" />
+                    <RoseSVG className="w-5 h-5" />
+                  </motion.div>
 
                   <button
                     onClick={() => {
                       document.querySelector(".film-container")?.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="mt-12 text-[hsl(var(--rose))]/70 hover:text-[hsl(var(--rose))] transition-colors font-sans text-xs tracking-widest uppercase flex flex-col items-center gap-2"
+                    className="mt-12 text-[hsl(var(--rose))]/65 hover:text-[hsl(var(--rose))] transition-colors font-sans text-xs tracking-widest uppercase flex flex-col items-center gap-2"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
                       <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
