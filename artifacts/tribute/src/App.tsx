@@ -64,8 +64,9 @@ const Subtitle = ({ text, delay = 0, className = "" }: { text: string, delay?: n
 export default function App() {
   const [entered, setEntered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [playerReady, setPlayerReady] = useState(false);
   const playerRef = useRef<any>(null);
+  const playerReadyRef = useRef(false);
+  const wantsPlayRef = useRef(false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   // Custom Cursor
@@ -79,58 +80,96 @@ export default function App() {
 
   // YouTube Setup
   useEffect(() => {
-    if (!window.YT) return;
-    
-    if (!window.onYouTubeIframeAPIReady) {
-      window.onYouTubeIframeAPIReady = () => {
-        playerRef.current = new window.YT.Player("youtube-player", {
-          videoId: "B6o7FtVXpcA",
-          playerVars: {
-            autoplay: 1,
-            loop: 1,
-            playlist: "B6o7FtVXpcA",
-            controls: 0,
-            showinfo: 0,
-            modestbranding: 1,
-            mute: 1
-          },
-          events: {
-            onReady: () => setPlayerReady(true),
-            onStateChange: (event: any) => {
-              if (event.data === window.YT.PlayerState.PLAYING) {
-                // If it unmuted, it means we are really playing with sound
-                if (!playerRef.current.isMuted()) setIsPlaying(true);
-              } else {
-                setIsPlaying(false);
-              }
+    const initPlayer = () => {
+      if (playerRef.current) return;
+      const target = document.getElementById("youtube-player");
+      if (!target) return;
+      playerRef.current = new window.YT.Player("youtube-player", {
+        videoId: "B6o7FtVXpcA",
+        width: "320",
+        height: "180",
+        playerVars: {
+          autoplay: 1,
+          loop: 1,
+          playlist: "B6o7FtVXpcA",
+          controls: 0,
+          showinfo: 0,
+          modestbranding: 1,
+          mute: 1,
+          playsinline: 1,
+          disablekb: 1,
+          fs: 0,
+          rel: 0,
+        },
+        events: {
+          onReady: (e: any) => {
+            playerReadyRef.current = true;
+            try {
+              e.target.playVideo();
+            } catch {}
+            if (wantsPlayRef.current) {
+              try {
+                e.target.unMute();
+                e.target.setVolume(100);
+                e.target.playVideo();
+                setIsPlaying(true);
+              } catch {}
             }
-          }
-        });
+          },
+          onStateChange: (event: any) => {
+            const YT = window.YT;
+            if (event.data === YT.PlayerState.PLAYING) {
+              if (!event.target.isMuted()) setIsPlaying(true);
+            } else if (
+              event.data === YT.PlayerState.PAUSED ||
+              event.data === YT.PlayerState.ENDED
+            ) {
+              setIsPlaying(false);
+            }
+          },
+        },
+      });
+    };
+
+    if (window.YT && window.YT.Player) {
+      initPlayer();
+    } else {
+      const prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        if (typeof prev === "function") prev();
+        initPlayer();
       };
-    } else if (window.YT && window.YT.Player && !playerRef.current) {
-      // If API was already ready
-      window.onYouTubeIframeAPIReady();
     }
   }, []);
 
   const handleEnter = () => {
     setEntered(true);
-    if (playerRef.current && playerReady) {
-      playerRef.current.unMute();
-      playerRef.current.playVideo();
-      setIsPlaying(true);
+    wantsPlayRef.current = true;
+    const p = playerRef.current;
+    if (p && playerReadyRef.current) {
+      try {
+        p.unMute();
+        p.setVolume(100);
+        p.playVideo();
+        setIsPlaying(true);
+      } catch {}
     }
   };
 
   const toggleMute = () => {
-    if (!playerRef.current) return;
-    if (isPlaying) {
-      playerRef.current.pauseVideo();
-      setIsPlaying(false);
-    } else {
-      playerRef.current.playVideo();
-      setIsPlaying(true);
-    }
+    const p = playerRef.current;
+    if (!p) return;
+    try {
+      if (isPlaying) {
+        p.pauseVideo();
+        setIsPlaying(false);
+      } else {
+        p.unMute();
+        p.setVolume(100);
+        p.playVideo();
+        setIsPlaying(true);
+      }
+    } catch {}
   };
 
   return (
@@ -143,8 +182,22 @@ export default function App() {
       <div className="film-grain" />
       <div className="vignette" />
       
-      {/* Hidden YouTube Player */}
-      <div id="youtube-player" className="fixed -top-10 -left-10 w-1 h-1 opacity-0 pointer-events-none" />
+      {/* Hidden YouTube Player (wrapper stays in DOM; YT replaces the inner div with an iframe) */}
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          left: "-9999px",
+          top: "-9999px",
+          width: "320px",
+          height: "180px",
+          opacity: 0,
+          pointerEvents: "none",
+          overflow: "hidden",
+        }}
+      >
+        <div id="youtube-player" />
+      </div>
 
       <AnimatePresence>
         {!entered ? (
