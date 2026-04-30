@@ -25,21 +25,71 @@ const SparkleSVG = ({ className = "" }: { className?: string }) => (
   </svg>
 );
 
-/* ==================== Big Beating Heart ==================== */
+/* ==================== Rose (top-down stylized) ==================== */
+const RoseSVG = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 64 64" className={className}>
+    <defs>
+      <radialGradient id="roseGrad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#ffd1dc" />
+        <stop offset="35%" stopColor="hsl(345 80% 55%)" />
+        <stop offset="100%" stopColor="hsl(345 75% 28%)" />
+      </radialGradient>
+      <radialGradient id="roseCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="hsl(345 90% 70%)" />
+        <stop offset="100%" stopColor="hsl(345 80% 35%)" />
+      </radialGradient>
+    </defs>
+    {/* outer petals */}
+    <g fill="url(#roseGrad)">
+      <ellipse cx="32" cy="13" rx="11" ry="14" />
+      <ellipse cx="14" cy="28" rx="14" ry="11" transform="rotate(-30 14 28)" />
+      <ellipse cx="50" cy="28" rx="14" ry="11" transform="rotate(30 50 28)" />
+      <ellipse cx="22" cy="49" rx="13" ry="11" transform="rotate(-50 22 49)" />
+      <ellipse cx="42" cy="49" rx="13" ry="11" transform="rotate(50 42 49)" />
+    </g>
+    {/* mid petals */}
+    <g fill="url(#roseCore)" opacity="0.95">
+      <ellipse cx="32" cy="22" rx="7" ry="9" />
+      <ellipse cx="22" cy="32" rx="9" ry="7" transform="rotate(-30 22 32)" />
+      <ellipse cx="42" cy="32" rx="9" ry="7" transform="rotate(30 42 32)" />
+      <ellipse cx="32" cy="42" rx="9" ry="7" />
+    </g>
+    {/* core */}
+    <circle cx="32" cy="32" r="6" fill="hsl(345 85% 28%)" />
+    <circle cx="31" cy="31" r="2.5" fill="hsl(345 85% 60%)" opacity="0.8" />
+  </svg>
+);
+
+const RosePetalSVG = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={className}>
+    <defs>
+      <linearGradient id="petalGrad" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0%" stopColor="hsl(345 85% 75%)" />
+        <stop offset="100%" stopColor="hsl(345 80% 45%)" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M12 2 C 18 4, 22 10, 18 18 C 15 22, 9 22, 6 18 C 2 10, 6 4, 12 2 Z"
+      fill="url(#petalGrad)"
+    />
+  </svg>
+);
+
+/* ==================== Natural Beating Heart ==================== */
 const BeatingHeart = ({ size = 240 }: { size?: number }) => (
   <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
     {/* expanding rings */}
-    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/15 heart-pulse-ring" />
-    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/15 heart-pulse-ring delay-1" />
-    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/15 heart-pulse-ring delay-2" />
+    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/12 heart-pulse-ring" />
+    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/12 heart-pulse-ring delay-1" />
+    <span className="absolute inset-0 rounded-full bg-[hsl(var(--rose))]/12 heart-pulse-ring delay-2" />
 
-    {/* halo */}
+    {/* warm halo */}
     <span
       className="absolute inset-0 rounded-full"
       style={{
         background:
-          "radial-gradient(circle, hsl(345 75% 60% / 0.55) 0%, transparent 65%)",
-        filter: "blur(20px)",
+          "radial-gradient(circle, hsl(345 75% 55% / 0.45) 0%, transparent 65%)",
+        filter: "blur(22px)",
       }}
     />
 
@@ -50,41 +100,56 @@ const BeatingHeart = ({ size = 240 }: { size?: number }) => (
       style={{ width: "70%", height: "70%" }}
     >
       <defs>
-        <radialGradient id="heartGrad" cx="35%" cy="30%" r="80%">
-          <stop offset="0%" stopColor="#ffd1dc" />
-          <stop offset="35%" stopColor="hsl(345 80% 65%)" />
-          <stop offset="100%" stopColor="hsl(345 70% 38%)" />
-        </radialGradient>
-        <linearGradient id="heartStroke" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="hsl(35 80% 70%)" />
-          <stop offset="100%" stopColor="hsl(345 70% 50%)" />
+        <linearGradient id="heartBody" x1="0.5" x2="0.5" y1="0" y2="1">
+          <stop offset="0%"  stopColor="#ff8aa0" />
+          <stop offset="45%" stopColor="hsl(348 75% 52%)" />
+          <stop offset="100%" stopColor="hsl(348 80% 25%)" />
         </linearGradient>
+        <radialGradient id="heartShine" cx="32%" cy="22%" r="55%">
+          <stop offset="0%"  stopColor="rgba(255,255,255,0.45)" />
+          <stop offset="55%" stopColor="rgba(255,255,255,0.05)" />
+          <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+        </radialGradient>
+        <radialGradient id="heartShade" cx="65%" cy="80%" r="55%">
+          <stop offset="0%"  stopColor="rgba(60,0,15,0.35)" />
+          <stop offset="100%" stopColor="rgba(60,0,15,0)" />
+        </radialGradient>
       </defs>
+      {/* base shape */}
       <path
-        d="M50 86 C 18 62, 6 44, 6 28 C 6 14, 18 6, 30 6 C 40 6, 47 12, 50 20 C 53 12, 60 6, 70 6 C 82 6, 94 14, 94 28 C 94 44, 82 62, 50 86 Z"
-        fill="url(#heartGrad)"
-        stroke="url(#heartStroke)"
-        strokeWidth="1.5"
+        d="M50 88 C 16 64, 6 44, 6 28 C 6 14, 17 6, 28 6 C 38 6, 46 12, 50 22 C 54 12, 62 6, 72 6 C 83 6, 94 14, 94 28 C 94 44, 84 64, 50 88 Z"
+        fill="url(#heartBody)"
       />
-      {/* highlight */}
-      <ellipse cx="34" cy="26" rx="9" ry="6" fill="#fff" opacity="0.45" />
+      {/* soft top-left shine */}
+      <path
+        d="M50 88 C 16 64, 6 44, 6 28 C 6 14, 17 6, 28 6 C 38 6, 46 12, 50 22 C 54 12, 62 6, 72 6 C 83 6, 94 14, 94 28 C 94 44, 84 64, 50 88 Z"
+        fill="url(#heartShine)"
+      />
+      {/* soft bottom-right shade */}
+      <path
+        d="M50 88 C 16 64, 6 44, 6 28 C 6 14, 17 6, 28 6 C 38 6, 46 12, 50 22 C 54 12, 62 6, 72 6 C 83 6, 94 14, 94 28 C 94 44, 84 64, 50 88 Z"
+        fill="url(#heartShade)"
+      />
     </svg>
   </div>
 );
 
-/* ==================== Floating Hearts Layer ==================== */
-const FloatingHearts = ({ count = 14 }: { count?: number }) => {
+/* ==================== Floating Hearts + Roses ==================== */
+const FloatingPetals = ({ count = 18 }: { count?: number }) => {
   const items = useMemo(
     () =>
-      Array.from({ length: count }).map((_, i) => ({
-        left: Math.random() * 100,
-        size: 10 + Math.random() * 22,
-        duration: 14 + Math.random() * 16,
-        delay: Math.random() * 12,
-        opacity: 0.25 + Math.random() * 0.45,
-        hue: Math.random() > 0.5 ? "hsl(var(--rose))" : "hsl(var(--primary))",
-        key: i,
-      })),
+      Array.from({ length: count }).map((_, i) => {
+        const kind = Math.random();
+        return {
+          left: Math.random() * 100,
+          size: 12 + Math.random() * 24,
+          duration: 16 + Math.random() * 18,
+          delay: Math.random() * 14,
+          opacity: 0.35 + Math.random() * 0.45,
+          kind: kind < 0.45 ? "heart" : kind < 0.85 ? "petal" : "rose",
+          key: i,
+        };
+      }),
     [count]
   );
   return (
@@ -95,25 +160,31 @@ const FloatingHearts = ({ count = 14 }: { count?: number }) => {
           className="absolute float-up"
           style={{
             left: `${it.left}%`,
-            bottom: "-40px",
+            bottom: "-50px",
             width: it.size,
             height: it.size,
-            color: it.hue,
             opacity: it.opacity,
             animationDuration: `${it.duration}s`,
             animationDelay: `${it.delay}s`,
-            filter: "drop-shadow(0 0 8px currentColor)",
+            color: "hsl(var(--rose))",
+            filter: "drop-shadow(0 0 8px hsl(var(--rose) / 0.5))",
           }}
         >
-          <HeartSVG className="w-full h-full" />
+          {it.kind === "heart" ? (
+            <HeartSVG className="w-full h-full" />
+          ) : it.kind === "petal" ? (
+            <RosePetalSVG className="w-full h-full" />
+          ) : (
+            <RoseSVG className="w-full h-full" />
+          )}
         </span>
       ))}
     </div>
   );
 };
 
-/* ==================== Sparkles Layer ==================== */
-const Sparkles = ({ count = 30 }: { count?: number }) => {
+/* ==================== Sparkles ==================== */
+const Sparkles = ({ count = 24 }: { count?: number }) => {
   const items = useMemo(
     () =>
       Array.from({ length: count }).map((_, i) => ({
@@ -149,7 +220,33 @@ const Sparkles = ({ count = 30 }: { count?: number }) => {
   );
 };
 
-/* ==================== Animated Subtitle ==================== */
+/* ==================== Scroll Down Indicator ==================== */
+const ScrollHint = ({ label = "اسحبي للأسفل" }: { label?: string }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    viewport={{ once: false, amount: 0.3 }}
+    transition={{ delay: 2.5, duration: 1.2 }}
+    className="absolute bottom-[10vh] left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 text-[hsl(var(--rose))]/80 pointer-events-none"
+    style={{ filter: "drop-shadow(0 0 8px hsl(var(--rose) / 0.5))" }}
+  >
+    <span className="text-[11px] tracking-[0.5em] font-sans">{label}</span>
+    <motion.div
+      animate={{ y: [0, 10, 0], opacity: [0.5, 1, 0.5] }}
+      transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+      className="flex flex-col items-center"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 -mb-2">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-60">
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </motion.div>
+  </motion.div>
+);
+
+/* ==================== Subtitle helpers ==================== */
 const Subtitle = ({
   text,
   delay = 0,
@@ -162,7 +259,7 @@ const Subtitle = ({
   <motion.div
     initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-    viewport={{ once: false, amount: 0.5 }}
+    viewport={{ once: false, amount: 0.4 }}
     transition={{ duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] }}
     className={className}
   >
@@ -170,7 +267,6 @@ const Subtitle = ({
   </motion.div>
 );
 
-/* ==================== Reveal name letter-by-letter ==================== */
 const NameReveal = ({ name, className = "" }: { name: string; className?: string }) => {
   const letters = Array.from(name);
   return (
@@ -190,6 +286,14 @@ const NameReveal = ({ name, className = "" }: { name: string; className?: string
     </span>
   );
 };
+
+const Divider = () => (
+  <div className="flex items-center justify-center gap-4 my-4 text-[hsl(var(--rose))]/70">
+    <span className="block w-12 h-[1px] bg-gradient-to-l from-transparent to-[hsl(var(--rose))]/60" />
+    <RoseSVG className="w-5 h-5" />
+    <span className="block w-12 h-[1px] bg-gradient-to-r from-transparent to-[hsl(var(--rose))]/60" />
+  </div>
+);
 
 /* ==================== App ==================== */
 export default function App() {
@@ -234,7 +338,6 @@ export default function App() {
     }
   };
 
-  // Spawn a burst of hearts at click position (extra delight)
   const handleHeartClick = (e: React.MouseEvent) => {
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -266,13 +369,13 @@ export default function App() {
             transition={{ duration: 1.5, ease: "easeInOut" }}
           >
             <Sparkles count={22} />
-            <FloatingHearts count={8} />
+            <FloatingPetals count={10} />
 
             <motion.div
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-10"
+              className="mb-8"
             >
               <BeatingHeart size={180} />
             </motion.div>
@@ -321,7 +424,7 @@ export default function App() {
 
             {/* Music Control */}
             <div
-              className="fixed bottom-12 left-6 z-50 text-[hsl(var(--rose))]/80 hover:text-[hsl(var(--rose))] transition-colors cursor-pointer"
+              className="fixed bottom-12 left-6 z-50 text-[hsl(var(--rose))]/85 hover:text-[hsl(var(--rose))] transition-colors cursor-pointer"
               onClick={toggleMute}
               style={{ filter: "drop-shadow(0 0 10px hsl(var(--rose) / 0.6))" }}
             >
@@ -334,20 +437,19 @@ export default function App() {
 
             <div className="film-container">
 
-              {/* ===== Scene 1: Title with giant beating heart ===== */}
+              {/* ===== Scene 1: Title ===== */}
               <section className="film-scene flex flex-col items-center justify-center bg-transparent text-center">
                 <Sparkles count={28} />
-                <FloatingHearts count={12} />
+                <FloatingPetals count={14} />
 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: false, amount: 0.4 }}
                   transition={{ duration: 1.8 }}
-                  className="relative z-10 flex flex-col items-center space-y-7"
+                  className="relative z-10 flex flex-col items-center space-y-6"
                   onClick={handleHeartClick}
                 >
-                  {/* Bursts */}
                   {bursts.map((b) => (
                     <span
                       key={b.id}
@@ -382,16 +484,14 @@ export default function App() {
                     <NameReveal name="غدّوش" className="shimmer-text" />
                   </h1>
 
-                  <div className="flex items-center gap-3 text-[hsl(var(--rose))]/70">
-                    <span className="block w-10 h-[1px] bg-[hsl(var(--rose))]/50" />
-                    <HeartSVG className="w-3 h-3" />
-                    <span className="block w-10 h-[1px] bg-[hsl(var(--rose))]/50" />
-                  </div>
-                  <p className="text-[hsl(var(--primary))]/50 font-sans text-xs tracking-[0.4em]">٣٠ نيسان ٢٠٢٦</p>
+                  <Divider />
+                  <p className="text-[hsl(var(--primary))]/55 font-sans text-xs tracking-[0.4em]">٣٠ نيسان ٢٠٢٦</p>
                 </motion.div>
+
+                <ScrollHint label="اسحبي للأسفل" />
               </section>
 
-              {/* ===== Scene 2: Hero image with Ken Burns + sparkles ===== */}
+              {/* ===== Scene 2: Hero image ===== */}
               <section className="film-scene bg-black relative overflow-hidden">
                 <motion.div
                   initial={{ scale: 1 }}
@@ -400,111 +500,133 @@ export default function App() {
                   transition={{ duration: 18, ease: "linear" }}
                   className="absolute inset-0"
                 >
-                  <div className="absolute inset-0 bg-black/40 z-10" />
-                  <img src={heroImage} alt="غدوش" className="w-full h-full object-cover object-center opacity-85" />
+                  <div className="absolute inset-0 bg-black/45 z-10" />
+                  <img src={heroImage} alt="غدّوش" className="w-full h-full object-cover object-center opacity-85" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-20 opacity-90" />
                   <div className="absolute inset-0 z-20" style={{
-                    background: "radial-gradient(circle at center, transparent 30%, hsl(345 50% 5% / 0.6) 90%)",
+                    background: "radial-gradient(circle at center, transparent 30%, hsl(345 50% 5% / 0.7) 90%)",
                   }} />
                 </motion.div>
 
                 <Sparkles count={18} />
 
-                {/* Floating mini hearts around the photo */}
+                {/* Roses around the photo */}
                 {[
-                  { top: "18%", left: "12%", delay: 0 },
-                  { top: "30%", left: "82%", delay: 0.6 },
-                  { top: "62%", left: "8%",  delay: 1.2 },
-                  { top: "70%", left: "85%", delay: 1.8 },
-                ].map((h, i) => (
+                  { top: "14%", left: "10%", size: 36, delay: 0 },
+                  { top: "24%", left: "84%", size: 28, delay: 0.4 },
+                  { top: "60%", left: "6%",  size: 32, delay: 0.8 },
+                  { top: "70%", left: "86%", size: 40, delay: 1.2 },
+                  { top: "40%", left: "92%", size: 22, delay: 1.6 },
+                ].map((r, i) => (
                   <motion.div
                     key={i}
-                    className="absolute z-30 text-[hsl(var(--rose))] drift"
-                    style={{ top: h.top, left: h.left, filter: "drop-shadow(0 0 10px currentColor)" }}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    whileInView={{ opacity: 0.85, scale: 1 }}
-                    transition={{ delay: h.delay, duration: 1.4 }}
+                    className="absolute z-30 drift"
+                    style={{ top: r.top, left: r.left, width: r.size, height: r.size }}
+                    initial={{ opacity: 0, scale: 0.4, rotate: -15 }}
+                    whileInView={{ opacity: 0.95, scale: 1, rotate: 0 }}
+                    transition={{ delay: r.delay, duration: 1.4 }}
                   >
-                    <HeartSVG className="w-7 h-7 heart-beat" />
+                    <RoseSVG className="w-full h-full" />
                   </motion.div>
                 ))}
 
-                <div className="absolute bottom-24 left-0 w-full text-center z-30 px-6">
+                <div className="absolute bottom-[16vh] left-0 w-full text-center z-30 px-6 space-y-4">
                   <Subtitle
-                    text="في حوران، تولد البنات تيجاناً"
-                    className="font-sans text-xl md:text-2xl text-[hsl(var(--foreground))] drop-shadow-md font-light glow-text"
+                    text="في حوران تولد البنات تيجاناً"
+                    delay={0.2}
+                    className="font-sans text-xl md:text-3xl text-foreground drop-shadow-md font-light glow-text"
+                  />
+                  <Subtitle
+                    text="ومن تراب الجيزة، نبتت زهرةٌ اسمها غدّوش"
+                    delay={1.2}
+                    className="font-sans text-base md:text-xl text-[hsl(var(--rose))]/90 font-light"
                   />
                 </div>
+                <ScrollHint label="تابعي الحكاية" />
               </section>
 
               {/* ===== Scene 3: Quote ===== */}
               <section className="film-scene flex flex-col items-center justify-center bg-transparent px-6 text-center relative">
-                <FloatingHearts count={6} />
+                <FloatingPetals count={8} />
                 <Sparkles count={14} />
-                <div className="max-w-2xl mx-auto space-y-10 relative z-10">
-                  <Subtitle text="وفي النهاية ..." delay={0} className="font-serif text-3xl md:text-5xl text-foreground" />
-                  <Subtitle text="اخترتُ نفسي ..." delay={1.2} className="font-serif text-3xl md:text-5xl text-foreground" />
+
+                <div className="max-w-2xl mx-auto space-y-9 relative z-10">
+                  <Subtitle
+                    text="قالت يومًا، بصوتٍ أعرفه"
+                    delay={0}
+                    className="font-sans text-base md:text-lg text-[hsl(var(--primary))]/70 tracking-wider"
+                  />
+                  <Subtitle text="وفي النهاية ..." delay={0.8} className="font-serif text-3xl md:text-5xl text-foreground" />
+                  <Subtitle text="اخترتُ نفسي ..." delay={1.6} className="font-serif text-3xl md:text-5xl text-foreground" />
                   <motion.div
                     initial={{ opacity: 0, y: 14, filter: "blur(6px)" }}
                     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     viewport={{ once: false, amount: 0.5 }}
-                    transition={{ duration: 1.4, delay: 2.4, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 1.4, delay: 2.6, ease: [0.16, 1, 0.3, 1] }}
                     className="font-serif text-3xl md:text-5xl shimmer-text flex items-center justify-center gap-4"
                   >
                     <span>والنفوس عزيزة</span>
                     <HeartSVG className="w-7 h-7 md:w-9 md:h-9 text-[hsl(var(--rose))] heart-beat" />
                   </motion.div>
+                  <Divider />
                   <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: 4, duration: 2 }}
-                    className="font-sans text-xs tracking-[0.4em] text-[hsl(var(--primary))]/60 mt-12"
+                    className="font-sans text-xs tracking-[0.4em] text-[hsl(var(--primary))]/60"
                   >
                     — غدّوش
                   </motion.p>
                 </div>
+                <ScrollHint label="هناك المزيد" />
               </section>
 
-              {/* ===== Scene 4: Identity (bilingual) ===== */}
+              {/* ===== Scene 4: Identity ===== */}
               <section className="film-scene bg-transparent relative flex items-center justify-center">
                 <div className="absolute inset-0">
                   <img src={heroImage} className="w-full h-full object-cover opacity-15 blur-md grayscale" alt="" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-black" />
                 </div>
-                <Sparkles count={12} />
+                <Sparkles count={14} />
+                <FloatingPetals count={6} />
 
-                <div className="relative z-10 flex flex-col space-y-12 items-center text-center">
+                <div className="relative z-10 flex flex-col space-y-10 items-center text-center">
+                  <Subtitle
+                    text="من هي غدّوش ؟"
+                    delay={0}
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-4 tracking-wider glow-text"
+                  />
                   {[
-                    { ar: "ابنةُ حوران", en: "Daughter of Hauran" },
-                    { ar: "من جزعة، درعا", en: "From Jizzah · Dar'A" },
-                    { ar: "وُلدت في ١٥ أيار", en: "Born May 15" },
-                    { ar: "صانعة الحكاية", en: "Storyteller" },
+                    { ar: "ابنةُ حوران الأبيّة", en: "Daughter of Hauran" },
+                    { ar: "من الجيزة، درعا", en: "From Al-Jizah · Dar'A" },
+                    { ar: "وُلدت في ربيع أيار", en: "Born in May's Spring" },
+                    { ar: "صانعةُ الحكاية والكلمة", en: "Storyteller of Words" },
                   ].map((line, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, y: 14, x: i % 2 === 0 ? -20 : 20 }}
                       whileInView={{ opacity: 1, y: 0, x: 0 }}
-                      viewport={{ once: false, amount: 0.7 }}
+                      viewport={{ once: false, amount: 0.6 }}
                       transition={{ duration: 1.2, delay: i * 0.4 }}
                       className="flex items-center gap-4"
                     >
-                      <HeartSVG className="w-3 h-3 text-[hsl(var(--rose))]" />
+                      <RoseSVG className="w-5 h-5" />
                       <div>
                         <h2 className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--primary))] font-light glow-text">{line.ar}</h2>
-                        <p className="font-serif text-sm md:text-base italic text-foreground/40 tracking-widest mt-1">{line.en}</p>
+                        <p className="font-serif text-sm md:text-base italic text-foreground/45 tracking-widest mt-1">{line.en}</p>
                       </div>
-                      <HeartSVG className="w-3 h-3 text-[hsl(var(--rose))]" />
+                      <RoseSVG className="w-5 h-5" />
                     </motion.div>
                   ))}
                 </div>
+                <ScrollHint label="القصيدة" />
               </section>
 
-              {/* ===== Scene 5: Heart-Centered Poem ===== */}
+              {/* ===== Scene 5: Poem with central heart ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 relative">
-                <FloatingHearts count={10} />
+                <FloatingPetals count={14} />
                 <Sparkles count={20} />
 
-                {/* Halo behind the heart */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <div className="rotate-slow w-[520px] h-[520px] rounded-full border border-[hsl(var(--rose))]/15" />
                 </div>
@@ -517,68 +639,137 @@ export default function App() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: false, amount: 0.5 }}
                   transition={{ duration: 1.6 }}
-                  className="relative z-10 mb-10"
+                  className="relative z-10 mb-8"
                 >
                   <BeatingHeart size={200} />
                 </motion.div>
 
-                <div className="max-w-2xl mx-auto space-y-7 text-center relative z-10">
-                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={0.1} className="font-sans text-xl md:text-2xl text-foreground/90 font-light leading-relaxed" />
-                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={0.5} className="font-sans text-xl md:text-2xl text-foreground/90 font-light leading-relaxed" />
-                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={0.9} className="font-sans text-xl md:text-2xl text-foreground/90 font-light leading-relaxed" />
-                  <Subtitle text="في صمتكِ حكاية، وفي اختياركِ لنفسك ألف انتصار" delay={1.3} className="font-sans text-xl md:text-2xl shimmer-text font-light leading-relaxed" />
+                <div className="max-w-2xl mx-auto space-y-5 text-center relative z-10">
+                  <Subtitle text="يا قمرَ الجيزة الذي ما غاب" delay={0.1} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={0.5} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={0.9} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={1.3} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="ومن وردِ نيسان غزلتِ ابتسامتكِ" delay={1.7} className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="في صمتكِ حكاية ، وفي اختياركِ لنفسكِ ألف انتصار" delay={2.1} className="font-sans text-xl md:text-2xl shimmer-text font-light leading-relaxed" />
                 </div>
+                <ScrollHint label="أمنياتي لكِ" />
               </section>
 
               {/* ===== Scene 6: Wishes ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 relative">
-                <FloatingHearts count={14} />
+                <FloatingPetals count={16} />
                 <Sparkles count={16} />
 
-                <div className="space-y-16 text-center relative z-10">
-                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/85 glow-text" />
-                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={0.8} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/85 glow-text" />
-                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={1.4} className="font-['Marhey'] text-4xl md:text-6xl shimmer-text" />
+                <div className="space-y-12 text-center relative z-10">
+                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={0.8} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامَ الوردُ في طريقكِ" delay={1.4} className="font-['Marhey'] text-4xl md:text-6xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={2.0} className="font-['Marhey'] text-4xl md:text-6xl shimmer-text" />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.4 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: false, amount: 0.5 }}
-                    transition={{ delay: 2, duration: 1.2 }}
-                    className="flex justify-center"
+                    transition={{ delay: 2.6, duration: 1.2 }}
+                    className="flex justify-center gap-6 items-center"
                   >
+                    <RoseSVG className="w-10 h-10 drift" />
                     <HeartSVG className="w-14 h-14 text-[hsl(var(--rose))] heart-beat" />
+                    <RoseSVG className="w-10 h-10 drift" />
                   </motion.div>
                 </div>
+                <ScrollHint label="باقة وردٍ لكِ" />
               </section>
 
-              {/* ===== Scene 7: Signature ===== */}
+              {/* ===== Scene 7: Roses bouquet ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative px-6">
+                <FloatingPetals count={20} />
+                <Sparkles count={12} />
+
+                <div className="relative z-10 max-w-2xl space-y-10">
+                  <Subtitle
+                    text="باقةُ وردٍ من قلبٍ يحبّكِ"
+                    delay={0}
+                    className="font-['Marhey'] text-3xl md:text-5xl shimmer-text glow-text"
+                  />
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false, amount: 0.4 }}
+                    transition={{ duration: 1.4, delay: 0.6 }}
+                    className="flex justify-center items-end gap-3 md:gap-5"
+                  >
+                    {[44, 56, 72, 56, 44].map((s, i) => (
+                      <motion.div
+                        key={i}
+                        animate={{ y: [0, -6, 0] }}
+                        transition={{ duration: 3.4, delay: i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                        style={{ width: s, height: s }}
+                      >
+                        <RoseSVG className="w-full h-full" />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  <div className="space-y-5 mt-6">
+                    <Subtitle
+                      text="لكلِّ يومٍ من أيامكِ ، وردة"
+                      delay={1.2}
+                      className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                    />
+                    <Subtitle
+                      text="ولكلِّ ابتسامةٍ من ضحكاتكِ ، نجمة"
+                      delay={1.8}
+                      className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                    />
+                    <Subtitle
+                      text="ولكلِّ خطوةٍ تختارينها ، طريقٌ من نور"
+                      delay={2.4}
+                      className="font-sans text-lg md:text-2xl text-[hsl(var(--rose))]/95 font-light"
+                    />
+                  </div>
+                </div>
+                <ScrollHint label="التوقيع" />
+              </section>
+
+              {/* ===== Scene 8: Signature ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative">
-                <Sparkles count={18} />
+                <Sparkles count={20} />
+                <FloatingPetals count={10} />
+
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 2 }}
                   className="flex flex-col items-center space-y-6 relative z-10"
                 >
-                  <BeatingHeart size={120} />
-                  <p className="font-sans text-base text-[hsl(var(--primary))]/70 tracking-[0.4em] mt-6">بكلّ الحُب</p>
+                  <BeatingHeart size={130} />
+                  <p className="font-sans text-base text-[hsl(var(--primary))]/75 tracking-[0.4em] mt-6">بكلّ الحُب</p>
                   <p
-                    className="font-['Aref_Ruqaa'] text-6xl md:text-8xl shimmer-text mt-2"
+                    className="font-['Aref_Ruqaa'] text-6xl md:text-8xl shimmer-text mt-1"
                     style={{ transform: "rotate(-4deg)" }}
                   >
                     غدّوش
                   </p>
-                  <div className="mt-20">
-                    <p className="font-sans text-[10px] text-[hsl(var(--primary))]/30 tracking-[0.4em]">
+
+                  <div className="flex items-center gap-3 mt-3 text-[hsl(var(--rose))]/80">
+                    <RoseSVG className="w-5 h-5" />
+                    <RoseSVG className="w-7 h-7" />
+                    <RoseSVG className="w-5 h-5" />
+                  </div>
+
+                  <div className="mt-16">
+                    <p className="font-sans text-[10px] text-[hsl(var(--primary))]/35 tracking-[0.4em]">
                       هدية رقمية · ٢٠٢٦
                     </p>
                   </div>
                 </motion.div>
+                <ScrollHint label="النهاية" />
               </section>
 
-              {/* ===== Scene 8: End ===== */}
+              {/* ===== Scene 9: End ===== */}
               <section className="film-scene bg-transparent flex flex-col items-center justify-center text-center relative">
-                <FloatingHearts count={6} />
+                <FloatingPetals count={6} />
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -604,13 +795,13 @@ export default function App() {
                   }}
                   className="relative z-10"
                 >
-                  <h2 className="font-['Marhey'] text-2xl text-[hsl(var(--primary))]/40 tracking-[1em] mr-[-1em]">نهاية</h2>
+                  <h2 className="font-['Marhey'] text-2xl text-[hsl(var(--primary))]/45 tracking-[1em] mr-[-1em]">نهاية</h2>
 
                   <button
                     onClick={() => {
                       document.querySelector(".film-container")?.scrollTo({ top: 0, behavior: "smooth" });
                     }}
-                    className="mt-12 text-[hsl(var(--rose))]/60 hover:text-[hsl(var(--rose))] transition-colors font-sans text-xs tracking-widest uppercase flex flex-col items-center gap-2"
+                    className="mt-12 text-[hsl(var(--rose))]/70 hover:text-[hsl(var(--rose))] transition-colors font-sans text-xs tracking-widest uppercase flex flex-col items-center gap-2"
                   >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
                       <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
