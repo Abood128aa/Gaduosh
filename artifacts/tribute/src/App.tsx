@@ -488,9 +488,9 @@ export default function App() {
               <section className="film-scene bg-black relative overflow-hidden">
                 <motion.div
                   initial={{ scale: 1 }}
-                  whileInView={{ scale: 1.18 }}
+                  whileInView={{ scale: 1.25 }}
                   viewport={{ once: false }}
-                  transition={{ duration: 22, ease: "linear" }}
+                  transition={{ duration: 35, ease: "linear" }}
                   className="absolute inset-0"
                 >
                   <div className="absolute inset-0 bg-black/45 z-10" />
@@ -526,21 +526,31 @@ export default function App() {
                   </motion.div>
                 ))}
 
-                <div className="absolute bottom-[14vh] left-0 w-full text-center z-30 px-6 space-y-5">
+                <div className="absolute bottom-[10vh] left-0 w-full text-center z-30 px-6 space-y-4">
                   <Subtitle
                     text="في حوران تولد البنات تيجاناً"
                     delay={0.3}
-                    className="font-sans text-xl md:text-3xl text-foreground drop-shadow-md font-light glow-text"
+                    className="font-sans text-xl md:text-2xl text-foreground drop-shadow-md font-light glow-text"
+                  />
+                  <Subtitle
+                    text="ومن سمراءِ ترابها يخرجُ الكبرياء"
+                    delay={2.0}
+                    className="font-sans text-lg md:text-xl text-foreground/90 font-light"
                   />
                   <Subtitle
                     text="وفي القلوب تولد الحكاياتُ الجميلة"
-                    delay={1.6}
-                    className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                    delay={3.6}
+                    className="font-sans text-lg md:text-xl text-foreground/90 font-light"
                   />
                   <Subtitle
-                    text="وهذه حكاية... غدّوش"
-                    delay={3.0}
-                    className="font-sans text-base md:text-xl text-[hsl(var(--rose))]/95 font-light tracking-wider"
+                    text="ومن أجمل الحكايات ، حكايتُكِ"
+                    delay={5.2}
+                    className="font-sans text-base md:text-lg text-foreground/85 font-light"
+                  />
+                  <Subtitle
+                    text="وهذه حكاية ... غدّوش"
+                    delay={6.8}
+                    className="font-sans text-base md:text-xl text-[hsl(var(--rose))]/95 font-light tracking-wider pt-2"
                   />
                 </div>
                 <ScrollHint label="تابعي" />
@@ -551,31 +561,41 @@ export default function App() {
                 <FloatingPetals count={10} />
                 <Sparkles count={16} />
 
-                <div className="relative z-10 max-w-2xl space-y-8">
+                <div className="relative z-10 max-w-2xl space-y-6">
                   <Subtitle
                     text="عن جمالكِ ..."
                     delay={0}
-                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-6 tracking-wider glow-text"
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-4 tracking-wider glow-text"
                   />
                   <Subtitle
                     text="في عينيكِ بحرٌ من حكايات لم تُروَ بعد"
-                    delay={0.8}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={1.0}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="وفي ابتسامتكِ ربيعٌ لا يعرف الذبول"
-                    delay={2.0}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={2.6}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="وفي صوتكِ موسيقى لا تشبه إلا قلبكِ"
-                    delay={3.2}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={4.2}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وفي ضحكتكِ يفتحُ الورد أبوابه"
+                    delay={5.8}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وفي خطواتكِ تمشي القصائد بهدوء"
+                    delay={7.4}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="أنتِ كما الورد ، نادرةٌ وكاملة"
-                    delay={4.4}
-                    className="font-sans text-2xl md:text-3xl shimmer-text font-light leading-relaxed pt-2"
+                    delay={9.0}
+                    className="font-sans text-xl md:text-3xl shimmer-text font-light leading-relaxed pt-2"
                   />
                 </div>
                 <ScrollHint label="المزيد عنكِ" />
@@ -586,36 +606,86 @@ export default function App() {
                 <FloatingPetals count={12} />
                 <Sparkles count={18} />
 
-                <div className="relative z-10 max-w-2xl space-y-8">
+                <div className="relative z-10 max-w-2xl space-y-6">
                   <Subtitle
                     text="جمالكِ ليس صورةً تُرى ..."
-                    delay={0.2}
-                    className="font-sans text-xl md:text-2xl text-foreground/90 font-light leading-relaxed"
+                    delay={0.3}
+                    className="font-sans text-lg md:text-2xl text-foreground/90 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="جمالكِ روحٌ تختار طريقها بكلّ ثقة"
-                    delay={1.5}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={2.0}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="جمالكِ هدوءٌ يحملُ كبرياء ابنةِ حوران"
-                    delay={2.8}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={3.7}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="جمالكِ أنّكِ تحبّين نفسكِ كما يُحبّ الورد عطره"
+                    delay={5.4}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="جمالكِ في صدقكِ ، وفي اختيارك ما تستحقّين"
+                    delay={7.1}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="جمالكِ أنّكِ ... أنتِ"
-                    delay={4.1}
-                    className="font-['Marhey'] text-3xl md:text-5xl shimmer-text glow-text pt-4"
+                    delay={8.8}
+                    className="font-['Marhey'] text-2xl md:text-5xl shimmer-text glow-text pt-3"
                   />
 
                   <motion.div
                     initial={{ opacity: 0, scale: 0.5 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 5, duration: 1.4 }}
+                    transition={{ delay: 9.8, duration: 1.4 }}
                     className="flex justify-center"
                   >
                     <RoseSVG className="w-12 h-12 drift" />
                   </motion.div>
+                </div>
+                <ScrollHint label="قوّتكِ" />
+              </section>
+
+              {/* ===== Scene 4b: Strength / Inner Power ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 text-center relative">
+                <FloatingPetals count={10} />
+                <Sparkles count={14} />
+
+                <div className="relative z-10 max-w-2xl space-y-6">
+                  <Subtitle
+                    text="عن قوّتكِ ..."
+                    delay={0}
+                    className="font-['Marhey'] text-2xl md:text-3xl text-[hsl(var(--rose))]/85 mb-4 tracking-wider glow-text"
+                  />
+                  <Subtitle
+                    text="في قلبكِ شجاعةُ كلِّ بنات حوران"
+                    delay={1.0}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وفي روحكِ هدوءُ النخل ، وعزّةُ الجبال"
+                    delay={2.6}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="تختارين الحُب لنفسكِ ، فيختارُكِ القمر"
+                    delay={4.2}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="وتمضين بهدوءٍ ، فتصير الطُرق خلفكِ ضوءاً"
+                    delay={5.8}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="أنتِ القويّة ... وأنتِ الناعمة"
+                    delay={7.4}
+                    className="font-sans text-xl md:text-3xl shimmer-text font-light leading-relaxed pt-2"
+                  />
                 </div>
                 <ScrollHint label="كلامها" />
               </section>
@@ -719,13 +789,15 @@ export default function App() {
                   <BeatingHeart size={180} />
                 </motion.div>
 
-                <div className="max-w-2xl mx-auto space-y-4 text-center relative z-10">
-                  <Subtitle text="يا قمراً ما غاب عن سمائي" delay={0.2} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={1.0} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={1.8} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={2.6} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="ومن وردِ نيسان غزلتِ ابتسامتكِ" delay={3.4} className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed" />
-                  <Subtitle text="في صمتكِ حكاية ، وفي اختياركِ لنفسكِ ألف انتصار" delay={4.2} className="font-sans text-lg md:text-2xl shimmer-text font-light leading-relaxed" />
+                <div className="max-w-2xl mx-auto space-y-3 text-center relative z-10">
+                  <Subtitle text="يا قمراً ما غاب عن سمائي" delay={0.3} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="يا فراشةً اختارت الليل مسرحاً" delay={1.6} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="وملكةً توّجت نفسها بلا عرش" delay={2.9} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="من تراب حوران الأسمر نسجتِ كبرياءكِ" delay={4.2} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="ومن وردِ نيسان غزلتِ ابتسامتكِ" delay={5.5} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="ومن أغاني الأعراس صنعتِ هويّتكِ" delay={6.8} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="ومن صمتِ الليل حملتِ ضوءكِ" delay={8.1} className="font-sans text-base md:text-2xl text-foreground/95 font-light leading-relaxed" />
+                  <Subtitle text="في صمتكِ حكاية ، وفي اختياركِ لنفسكِ ألف انتصار" delay={9.4} className="font-sans text-base md:text-2xl shimmer-text font-light leading-relaxed pt-2" />
                 </div>
                 <ScrollHint label="أمنياتي لكِ" />
               </section>
@@ -735,17 +807,19 @@ export default function App() {
                 <FloatingPetals count={16} />
                 <Sparkles count={16} />
 
-                <div className="space-y-9 text-center relative z-10">
-                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
-                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={1.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
-                  <Subtitle text="ودامَ الوردُ في طريقكِ" delay={2.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
-                  <Subtitle text="ودامَ صوتُكِ ، يا صوتَ الفرح" delay={3.2} className="font-['Marhey'] text-3xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
-                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={4.2} className="font-['Marhey'] text-3xl md:text-5xl shimmer-text" />
+                <div className="space-y-7 text-center relative z-10">
+                  <Subtitle text="دامَ لكِ التاج" delay={0.2} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامتِ الفراشاتُ حولكِ" delay={1.4} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامَ الوردُ في طريقكِ" delay={2.6} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامَ صوتُكِ ، يا صوتَ الفرح" delay={3.8} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامتِ الضحكةُ في عينيكِ" delay={5.0} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--primary))]/90 glow-text" />
+                  <Subtitle text="ودامَ ربيعُكِ ، ولا خريفَ يطالكِ" delay={6.2} className="font-['Marhey'] text-2xl md:text-5xl text-[hsl(var(--rose))]/90 glow-text" />
+                  <Subtitle text="ودامَ القلبُ الذي اخترتِه" delay={7.4} className="font-['Marhey'] text-2xl md:text-5xl shimmer-text" />
                   <motion.div
                     initial={{ opacity: 0, scale: 0.4 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: false, amount: 0.5 }}
-                    transition={{ delay: 5.0, duration: 1.2 }}
+                    transition={{ delay: 8.4, duration: 1.2 }}
                     className="flex justify-center gap-6 items-center"
                   >
                     <RoseSVG className="w-10 h-10 drift" />
@@ -790,17 +864,27 @@ export default function App() {
                   <div className="space-y-5 mt-4">
                     <Subtitle
                       text="لكلِّ يومٍ من أيامكِ ، وردة"
-                      delay={1.6}
+                      delay={2.0}
                       className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
                     />
                     <Subtitle
                       text="ولكلِّ ابتسامةٍ من ضحكاتكِ ، نجمة"
-                      delay={2.4}
+                      delay={3.4}
+                      className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                    />
+                    <Subtitle
+                      text="ولكلِّ كلمةٍ من حروفكِ ، فراشة"
+                      delay={4.8}
+                      className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
+                    />
+                    <Subtitle
+                      text="ولكلِّ نظرةٍ من عينيكِ ، أغنية"
+                      delay={6.2}
                       className="font-sans text-lg md:text-2xl text-foreground/90 font-light"
                     />
                     <Subtitle
                       text="ولكلِّ خطوةٍ تختارينها ، طريقٌ من نور"
-                      delay={3.2}
+                      delay={7.6}
                       className="font-sans text-lg md:text-2xl text-[hsl(var(--rose))]/95 font-light"
                     />
                   </div>
@@ -813,7 +897,7 @@ export default function App() {
                 <FloatingPetals count={10} />
                 <Sparkles count={14} />
 
-                <div className="relative z-10 max-w-2xl space-y-7">
+                <div className="relative z-10 max-w-2xl space-y-6">
                   <Subtitle
                     text="من القلب ..."
                     delay={0}
@@ -821,23 +905,73 @@ export default function App() {
                   />
                   <Subtitle
                     text="غدّوش ، يا قلبًا لا يُشبه قلباً"
-                    delay={0.8}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={1.0}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="يا روحًا اختارت الجمال طريقاً"
-                    delay={2.0}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={2.6}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="يا حُلمًا يمشي على الأرض"
-                    delay={3.2}
-                    className="font-sans text-xl md:text-2xl text-foreground/95 font-light leading-relaxed"
+                    delay={4.2}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="يا قصيدةً لم يُكتب لها مثيل"
+                    delay={5.8}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="يا فرحًا قديماً ... متجدّداً كلَّ صباح"
+                    delay={7.4}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
                   />
                   <Subtitle
                     text="ابقي كما أنتِ ... فأنتِ كما الحُلمُ تماماً"
+                    delay={9.0}
+                    className="font-['Marhey'] text-2xl md:text-4xl shimmer-text font-light leading-relaxed pt-2"
+                  />
+                </div>
+                <ScrollHint label="بحبّكِ" />
+              </section>
+
+              {/* ===== Scene 10b: Ultimate blessing ===== */}
+              <section className="film-scene bg-transparent flex flex-col items-center justify-center px-6 text-center relative">
+                <FloatingPetals count={14} />
+                <Sparkles count={18} />
+
+                <div className="relative z-10 max-w-2xl space-y-6">
+                  <Subtitle
+                    text="غدّوش ..."
+                    delay={0}
+                    className="font-['Marhey'] text-3xl md:text-5xl shimmer-text glow-text mb-3"
+                  />
+                  <Subtitle
+                    text="ربّي يحرسكِ من كلِّ حزنٍ يطرق الباب"
+                    delay={1.2}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="ويملأ أيامكِ بكلِّ ما تتمنّاه روحكِ"
+                    delay={2.8}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="ويرسلُ في طريقكِ من يحبّكِ كما تستحقّين"
                     delay={4.4}
-                    className="font-['Marhey'] text-2xl md:text-4xl shimmer-text font-light leading-relaxed pt-3"
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="ويُبقي على وجهكِ تلك الابتسامة"
+                    delay={6.0}
+                    className="font-sans text-lg md:text-2xl text-foreground/95 font-light leading-relaxed"
+                  />
+                  <Subtitle
+                    text="فأنتِ تستحقّين كلَّ الحُبِّ ، وكلَّ الورد"
+                    delay={7.6}
+                    className="font-['Marhey'] text-xl md:text-3xl shimmer-text font-light leading-relaxed pt-2"
                   />
                 </div>
                 <ScrollHint label="التوقيع" />
