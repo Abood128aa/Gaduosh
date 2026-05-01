@@ -227,4 +227,42 @@ router.get("/admin/visits", requireAdmin, async (_req: Request, res: Response) =
   }
 });
 
+/* ─── Reset endpoints ─── */
+
+router.delete("/admin/reset/visits", requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    await db.delete(tributeVisitsTable);
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "DB error" });
+  }
+});
+
+router.delete("/admin/reset/likes", requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    await db.delete(tributeLikesTable);
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "DB error" });
+  }
+});
+
+router.delete("/admin/reset/messages", requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    await db.delete(tributeMessagesTable);
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "DB error" });
+  }
+});
+
+router.delete("/admin/reset/shares", requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    await db.delete(tributeSharesTable);
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "DB error" });
+  }
+});
+
 export default router;

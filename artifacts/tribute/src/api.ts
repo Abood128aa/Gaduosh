@@ -59,4 +59,8 @@ export const api = {
   uploadImage: (file: File, p: string) => uploadFile("/admin/upload/image", "image", file, p),
   uploadSong: (file: File, p: string) => uploadFile("/admin/upload/song", "song", file, p),
   getVisits: (p: string) => get("/admin/visits", p),
+  resetVisits: (p: string) => del("/admin/reset/visits", p),
+  resetLikes: (p: string) => del("/admin/reset/likes", p),
+  resetMessages: (p: string) => del("/admin/reset/messages", p),
+  resetShares: (p: string) => del("/admin/reset/shares", p),
 };
