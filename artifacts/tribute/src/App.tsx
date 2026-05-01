@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import heroImage from "@assets/FB_IMG_1777583498554_1777583587493.jpg";
-const songUrl = `${import.meta.env.BASE_URL}tribute-song.mp3`;
+import { api } from "./api";
+import AdminPanel from "./AdminPanel";
+
+const defaultSongUrl = `${import.meta.env.BASE_URL}tribute-song.mp3`;
 
 /* ==================== Icons ==================== */
 const PlayIcon = () => (
@@ -276,17 +279,73 @@ const GhadBadge = () => (
   </motion.div>
 );
 
+/* ==================== Message Form ==================== */
+const MessageForm = () => {
+  const [text, setText] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+
+  const send = async () => {
+    if (!text.trim() || status !== "idle") return;
+    setStatus("sending");
+    const res = await api.sendMessage(text.trim());
+    setStatus(res.ok ? "done" : "error");
+  };
+
+  return (
+    <div className="w-full max-w-sm space-y-3">
+      {status === "done" ? (
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="font-['Marhey'] text-lg shimmer-text text-center"
+        >
+          وصلت رسالتكِ بكلّ ما فيها
+        </motion.p>
+      ) : (
+        <>
+          <label className="block text-xs text-[hsl(var(--primary))]/55 tracking-[0.4em] text-center">
+            اكتبي كلمة
+          </label>
+          <div className="relative">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              maxLength={300}
+              rows={3}
+              dir="rtl"
+              placeholder="اكتبي ما يخطر على بالكِ ..."
+              className="w-full bg-white/5 border border-[hsl(var(--rose))]/20 rounded-2xl px-4 py-3 text-white text-sm resize-none outline-none focus:border-[hsl(var(--rose))]/55 transition-colors placeholder:text-white/25 font-sans leading-relaxed"
+            />
+            <span className="absolute bottom-2 left-3 text-[10px] text-white/20">{text.length}/300</span>
+          </div>
+          <button
+            onClick={send}
+            disabled={!text.trim() || status === "sending"}
+            className="w-full py-2.5 rounded-xl border border-[hsl(var(--rose))]/30 bg-[hsl(var(--rose))]/10 text-[hsl(var(--primary))] font-['Marhey'] text-base hover:bg-[hsl(var(--rose))]/20 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            {status === "sending" ? "..." : "أرسلي"}
+          </button>
+          {status === "error" && (
+            <p className="text-red-400/70 text-xs text-center">حدث خطأ، حاولي مجدداً</p>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
 /* ==================== Like Button ==================== */
 const LikeButton = () => {
   const [liked, setLiked] = useState(false);
   const [ripples, setRipples] = useState<number[]>([]);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (liked) return;
     setLiked(true);
     const ids = [0, 1, 2].map((_, i) => Date.now() + i);
     setRipples(ids);
     setTimeout(() => setRipples([]), 900);
+    await api.recordLike();
   };
 
   return (
@@ -351,17 +410,40 @@ const LikeButton = () => {
 
 /* ==================== App ==================== */
 export default function App() {
+  const [isAdmin, setIsAdmin] = useState(window.location.hash === "#admin");
   const [entered, setEntered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [bursts, setBursts] = useState<{ id: number; x: number; y: number }[]>([]);
+  const [songUrl, setSongUrl] = useState(defaultSongUrl);
+
+  // Hash routing
+  useEffect(() => {
+    const onHash = () => setIsAdmin(window.location.hash === "#admin");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  // Fetch remote settings (song, image overrides)
+  useEffect(() => {
+    api.getSettings().then((cfg: Record<string, string>) => {
+      if (cfg.songUrl) setSongUrl(cfg.songUrl);
+    }).catch(() => {});
+  }, []);
+
+  // Record visit
+  useEffect(() => {
+    if (!isAdmin) api.recordVisit().catch(() => {});
+  }, [isAdmin]);
 
   useEffect(() => {
     const fn = (e: MouseEvent) => setMousePos({ x: e.clientX, y: e.clientY });
     window.addEventListener("mousemove", fn);
     return () => window.removeEventListener("mousemove", fn);
   }, []);
+
+  if (isAdmin) return <AdminPanel />;
 
   const handleEnter = () => {
     setEntered(true);
@@ -1127,11 +1209,21 @@ export default function App() {
                     <LikeButton />
                   </motion.div>
 
+                  {/* Message form */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 7.2, duration: 1.2 }}
+                    className="w-full flex justify-center"
+                  >
+                    <MessageForm />
+                  </motion.div>
+
                   {/* Facebook link */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 7.5, duration: 1.2 }}
+                    transition={{ delay: 8.0, duration: 1.2 }}
                     className="flex flex-col items-center gap-3"
                   >
                     <a
@@ -1139,6 +1231,7 @@ export default function App() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="fb-btn"
+                      onClick={() => api.recordShare().catch(() => {})}
                     >
                       <FacebookIcon />
                       <span>صفحة غدّوش</span>
